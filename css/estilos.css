@@ -1,0 +1,19 @@
+/* ===== Reinicio básico =====
+   Los navegadores traen márgenes por defecto; los quitamos
+   para tener control total del diseño. */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* el padding no agranda las cajas */
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f6fb;
+  color: #222;
+}
+
+/* Estilo temporal para comprobar que el CSS está conectado */
+#app {
+  padding: 20px;
+}
