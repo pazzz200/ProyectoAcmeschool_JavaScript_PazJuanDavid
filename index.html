@@ -4,13 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Acme School - Plataforma de exámenes</title>
+
+  <!-- fuente de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
-  <header id="encabezado"></header>
+  <!-- por ahora la barra va fija aca, en la etapa 3 la volvemos un web component -->
+  <header id="encabezado">
+    <nav class="barra">
+      <a href="#/" class="barra__logo">Acme School</a>
+      <ul class="barra__enlaces">
+        <li><a href="#/presentar">Presentar examen</a></li>
+        <li><a href="#/usuarios">Usuarios</a></li>
+        <li><a href="#/examenes">Exámenes</a></li>
+        <li><a href="#/login">Iniciar sesión</a></li>
+      </ul>
+    </nav>
+  </header>
+
   <main id="app"></main>
   <script type="module" src="js/principal.js"></script>
-  
+
 </body>
 </html>
