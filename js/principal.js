@@ -1,41 +1,40 @@
-// Aca arranca todo. Por ahora solo pintamos una pantalla de bienvenida
+// Aca arranca todo. Este archivo decide que pantalla se ve segun la URL
+import "./componentes/formulario-login.js";
+
 const contenedorApp = document.getElementById("app");
 
-contenedorApp.innerHTML = `
-  <h1 class="titulo-pagina">Bienvenido a Acme School</h1>
-  <p class="subtitulo">Plataforma para crear y presentar exámenes en línea.</p>
+// pantalla temporal para los modulos que aun no hemos hecho
+function pantallaPendiente(titulo) {
+  return `
+    <section class="tarjeta">
+      <h1 class="titulo-pagina">${titulo}</h1>
+      <p class="subtitulo">Este módulo lo construimos en las próximas etapas.</p>
+    </section>
+  `;
+}
 
-  <section class="tarjeta">
-    <h2>Botones</h2>
-    <br>
-    <button class="boton">Principal</button>
-    <button class="boton boton--secundario">Secundario</button>
-    <button class="boton boton--peligro">Eliminar</button>
-  </section>
+// cada ruta (lo que va despues del #) tiene su pantalla
+const rutas = {
+  "#/": `
+    <section class="tarjeta">
+      <h1 class="titulo-pagina">Bienvenido a Acme School</h1>
+      <p class="subtitulo">Plataforma para crear y presentar exámenes en línea.</p>
+      <a href="#/presentar" class="boton">Presentar un examen</a>
+      <a href="#/login" class="boton boton--secundario">Soy docente / administrativo</a>
+    </section>
+  `,
+  "#/login": "<formulario-login></formulario-login>",
+  "#/presentar": pantallaPendiente("Presentar examen"),
+  "#/usuarios": pantallaPendiente("Gestión de usuarios"),
+  "#/examenes": pantallaPendiente("Gestión de exámenes"),
+};
 
-  <section class="tarjeta">
-    <h2>Formulario de ejemplo</h2>
-    <br>
-    <div class="campo">
-      <label for="correoPrueba">Correo</label>
-      <input type="email" id="correoPrueba" placeholder="correo@acme.com">
-    </div>
-    <p class="mensaje-error">Asi se ve un mensaje de error</p>
-  </section>
+function mostrarPantalla() {
+  // si no hay # en la URL, mostramos el inicio
+  const rutaActual = location.hash || "#/";
+  contenedorApp.innerHTML = rutas[rutaActual] || pantallaPendiente("Página no encontrada");
+}
 
-  <section class="tarjeta">
-    <h2>Tabla de ejemplo</h2>
-    <br>
-    <div class="tabla-contenedor">
-      <table class="tabla">
-        <thead>
-          <tr><th>Código</th><th>Título</th><th>Tiempo</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>MAT01</td><td>Matemáticas</td><td>10 min</td></tr>
-          <tr><td>ING01</td><td>Inglés</td><td>15 min</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-`;
+// hashchange salta cada vez que cambia lo que va despues del #
+window.addEventListener("hashchange", mostrarPantalla);
+mostrarPantalla();

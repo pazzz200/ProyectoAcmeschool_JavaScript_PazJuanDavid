@@ -183,6 +183,23 @@ a {
   font-size: 0.85rem;
 }
 
+.mensaje-exito {
+  color: var(--color-exito);
+  font-size: 0.85rem;
+}
+
+/* ========== Login ==========
+   tarjeta angosta y centrada */
+.login {
+  max-width: 420px;
+  margin: 40px auto;
+}
+
+.login__boton {
+  width: 100%;
+  margin-top: 12px;
+}
+
 /* ========== Tablas ==========
    el contenedor deja hacer scroll horizontal en celular */
 .tabla-contenedor {
