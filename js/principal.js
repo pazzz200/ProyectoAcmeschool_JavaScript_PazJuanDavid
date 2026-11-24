@@ -1,7 +1,15 @@
 // Aca arranca todo. Este archivo decide que pantalla se ve segun la URL
 import "./componentes/formulario-login.js";
+import "./componentes/barra-navegacion.js";
+import { crearAdminPorDefecto } from "./servicios/almacenamiento.js";
+import { obtenerUsuarioActual } from "./servicios/autenticacion.js";
 
 const contenedorApp = document.getElementById("app");
+
+// pantallas que solo se ven con sesion iniciada
+const rutasPrivadas = ["#/usuarios", "#/examenes"];
+
+crearAdminPorDefecto();
 
 // pantalla temporal para los modulos que aun no hemos hecho
 function pantallaPendiente(titulo) {
@@ -32,6 +40,20 @@ const rutas = {
 function mostrarPantalla() {
   // si no hay # en la URL, mostramos el inicio
   const rutaActual = location.hash || "#/";
+  const usuario = obtenerUsuarioActual();
+
+  // sin sesion no puede entrar a lo privado, pa'l login
+  if (rutasPrivadas.includes(rutaActual) && !usuario) {
+    location.hash = "#/login";
+    return;
+  }
+
+  // si ya esta logueado no tiene sentido mostrarle el login otra vez
+  if (rutaActual === "#/login" && usuario) {
+    location.hash = "#/usuarios";
+    return;
+  }
+
   contenedorApp.innerHTML = rutas[rutaActual] || pantallaPendiente("Página no encontrada");
 }
 

@@ -1,5 +1,6 @@
 // Nuestro primer web component: <formulario-login>
 // Una clase que hereda de HTMLElement es basicamente una etiqueta HTML hecha por nosotros
+import { iniciarSesion } from "../servicios/autenticacion.js";
 
 class FormularioLogin extends HTMLElement {
 
@@ -22,7 +23,6 @@ class FormularioLogin extends HTMLElement {
           </div>
 
           <p class="mensaje-error" id="mensajeError"></p>
-          <p class="mensaje-exito" id="mensajeExito"></p>
 
           <button type="submit" class="boton login__boton">Ingresar</button>
         </form>
@@ -42,11 +42,9 @@ class FormularioLogin extends HTMLElement {
     const correo = this.querySelector("#correo").value.trim();
     const contrasena = this.querySelector("#contrasena").value.trim();
     const mensajeError = this.querySelector("#mensajeError");
-    const mensajeExito = this.querySelector("#mensajeExito");
 
-    // limpiamos mensajes viejos
+    // limpiamos el mensaje viejo
     mensajeError.textContent = "";
-    mensajeExito.textContent = "";
 
     if (correo === "" || contrasena === "") {
       mensajeError.textContent = "Por favor llena todos los campos.";
@@ -65,8 +63,16 @@ class FormularioLogin extends HTMLElement {
       return;
     }
 
-    // por ahora solo avisamos, en la etapa 4 revisamos si el usuario existe de verdad
-    mensajeExito.textContent = "Datos válidos. En la siguiente etapa revisamos si el usuario existe.";
+    // ahora si revisamos si el usuario existe en LocalStorage
+    const entro = iniciarSesion(correo, contrasena);
+
+    if (!entro) {
+      mensajeError.textContent = "Correo o contraseña incorrectos.";
+      return;
+    }
+
+    // si todo bien lo mandamos a la gestion de usuarios
+    location.hash = "#/usuarios";
   }
 }
 

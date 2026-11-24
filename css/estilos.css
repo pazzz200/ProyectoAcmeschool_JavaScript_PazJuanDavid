@@ -71,6 +71,32 @@ a {
   background-color: rgba(255, 255, 255, 0.15);
 }
 
+.barra__enlaces li {
+  display: flex;
+  align-items: center;
+}
+
+.barra__usuario {
+  padding: 8px 6px;
+  font-weight: 600;
+}
+
+.barra__salir {
+  background-color: white;
+  color: var(--color-primario);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--transicion);
+}
+
+.barra__salir:hover {
+  transform: translateY(-2px);
+}
+
 /* ========== Contenedor principal ========== */
 #app {
   max-width: 1100px;
