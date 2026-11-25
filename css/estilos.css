@@ -226,6 +226,44 @@ a {
   margin-top: 12px;
 }
 
+/* formulario en 2 columnas (en celular baja a 1, ver abajo) */
+.formulario-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 20px;
+}
+
+.campo input:disabled {
+  background-color: var(--color-fondo);
+  cursor: not-allowed;
+}
+
+.botones-formulario {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.boton--pequeno {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.acciones {
+  display: flex;
+  gap: 6px;
+}
+
+/* cajita de color para el cargo */
+.etiqueta {
+  background-color: #fee2e2;
+  color: var(--color-primario-oscuro);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
 /* ========== Tablas ==========
    el contenedor deja hacer scroll horizontal en celular */
 .tabla-contenedor {
@@ -272,5 +310,9 @@ a {
 
   .titulo-pagina {
     font-size: 1.4rem;
+  }
+
+  .formulario-grid {
+    grid-template-columns: 1fr;
   }
 }

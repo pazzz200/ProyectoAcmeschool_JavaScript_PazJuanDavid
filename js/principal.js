@@ -1,6 +1,7 @@
 // Aca arranca todo. Este archivo decide que pantalla se ve segun la URL
 import "./componentes/formulario-login.js";
 import "./componentes/barra-navegacion.js";
+import "./componentes/gestion-usuarios.js";
 import { crearAdminPorDefecto } from "./servicios/almacenamiento.js";
 import { obtenerUsuarioActual } from "./servicios/autenticacion.js";
 
@@ -33,7 +34,7 @@ const rutas = {
   `,
   "#/login": "<formulario-login></formulario-login>",
   "#/presentar": pantallaPendiente("Presentar examen"),
-  "#/usuarios": pantallaPendiente("Gestión de usuarios"),
+  "#/usuarios": "<gestion-usuarios></gestion-usuarios>",
   "#/examenes": pantallaPendiente("Gestión de exámenes"),
 };
 
