@@ -112,6 +112,7 @@ class GestionExamenes extends HTMLElement {
         <td>${examen.porcentajeAprobacion}%</td>
         <td><span class="etiqueta">${examen.preguntas.length}</span></td>
         <td class="acciones">
+          <a href="#/preguntas/${examen.codigo}" class="boton boton--pequeno boton--secundario">Preguntas</a>
           <button class="boton boton--pequeno boton-editar" data-codigo="${examen.codigo}">Editar</button>
           <button class="boton boton--pequeno boton--peligro boton-eliminar" data-codigo="${examen.codigo}">Eliminar</button>
         </td>

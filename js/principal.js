@@ -3,13 +3,14 @@ import "./componentes/formulario-login.js";
 import "./componentes/barra-navegacion.js";
 import "./componentes/gestion-usuarios.js";
 import "./componentes/gestion-examenes.js";
+import "./componentes/gestion-preguntas.js";
 import { crearAdminPorDefecto } from "./servicios/almacenamiento.js";
 import { obtenerUsuarioActual } from "./servicios/autenticacion.js";
 
 const contenedorApp = document.getElementById("app");
 
 // pantallas que solo se ven con sesion iniciada
-const rutasPrivadas = ["#/usuarios", "#/examenes"];
+const rutasPrivadas = ["#/usuarios", "#/examenes", "#/preguntas"];
 
 crearAdminPorDefecto();
 
@@ -23,7 +24,8 @@ function pantallaPendiente(titulo) {
   `;
 }
 
-// cada ruta (lo que va despues del #) tiene su pantalla
+// cada ruta (lo que va despues del #) tiene su pantalla.
+// Las que necesitan un dato extra (como el codigo del examen) son funciones
 const rutas = {
   "#/": `
     <section class="tarjeta">
@@ -37,26 +39,41 @@ const rutas = {
   "#/presentar": pantallaPendiente("Presentar examen"),
   "#/usuarios": "<gestion-usuarios></gestion-usuarios>",
   "#/examenes": "<gestion-examenes></gestion-examenes>",
+  "#/preguntas": (codigo) => `<gestion-preguntas codigo="${codigo}"></gestion-preguntas>`,
 };
 
 function mostrarPantalla() {
   // si no hay # en la URL, mostramos el inicio
   const rutaActual = location.hash || "#/";
+
+  // partimos la ruta, ej: "#/preguntas/MAT01" queda ["#", "preguntas", "MAT01"]
+  const partes = rutaActual.split("/");
+  const rutaBase = "#/" + (partes[1] || "");
+  const parametro = partes[2];
+
   const usuario = obtenerUsuarioActual();
 
   // sin sesion no puede entrar a lo privado, pa'l login
-  if (rutasPrivadas.includes(rutaActual) && !usuario) {
+  if (rutasPrivadas.includes(rutaBase) && !usuario) {
     location.hash = "#/login";
     return;
   }
 
   // si ya esta logueado no tiene sentido mostrarle el login otra vez
-  if (rutaActual === "#/login" && usuario) {
+  if (rutaBase === "#/login" && usuario) {
     location.hash = "#/usuarios";
     return;
   }
 
-  contenedorApp.innerHTML = rutas[rutaActual] || pantallaPendiente("Página no encontrada");
+  const pantalla = rutas[rutaBase];
+
+  if (!pantalla) {
+    contenedorApp.innerHTML = pantallaPendiente("Página no encontrada");
+  } else if (typeof pantalla === "function") {
+    contenedorApp.innerHTML = pantalla(parametro);
+  } else {
+    contenedorApp.innerHTML = pantalla;
+  }
 }
 
 // hashchange salta cada vez que cambia lo que va despues del #
