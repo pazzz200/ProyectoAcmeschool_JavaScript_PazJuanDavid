@@ -4,6 +4,8 @@ import "./componentes/barra-navegacion.js";
 import "./componentes/gestion-usuarios.js";
 import "./componentes/gestion-examenes.js";
 import "./componentes/gestion-preguntas.js";
+import "./componentes/lista-examenes.js";
+import "./componentes/resolver-examen.js";
 import { crearAdminPorDefecto } from "./servicios/almacenamiento.js";
 import { obtenerUsuarioActual } from "./servicios/autenticacion.js";
 
@@ -36,7 +38,8 @@ const rutas = {
     </section>
   `,
   "#/login": "<formulario-login></formulario-login>",
-  "#/presentar": pantallaPendiente("Presentar examen"),
+  "#/presentar": "<lista-examenes></lista-examenes>",
+  "#/resolver": (codigo) => `<resolver-examen codigo="${codigo}"></resolver-examen>`,
   "#/usuarios": "<gestion-usuarios></gestion-usuarios>",
   "#/examenes": "<gestion-examenes></gestion-examenes>",
   "#/preguntas": (codigo) => `<gestion-preguntas codigo="${codigo}"></gestion-preguntas>`,

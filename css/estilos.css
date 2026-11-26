@@ -361,6 +361,105 @@ a {
   font-weight: 600;
 }
 
+/* ========== Lista publica de examenes ==========
+   auto-fill acomoda solas las tarjetas segun el ancho de la pantalla */
+.grilla-examenes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.tarjeta-examen {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 0;
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+
+.tarjeta-examen:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.tarjeta-examen .etiqueta {
+  align-self: flex-start;
+}
+
+.tarjeta-examen__descripcion {
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+}
+
+.tarjeta-examen__datos {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+/* margin-top auto empuja el boton al fondo de la tarjeta */
+.tarjeta-examen__boton {
+  margin-top: auto;
+  text-align: center;
+}
+
+/* ========== Presentar examen ========== */
+.encabezado-examen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 5px solid var(--color-primario);
+}
+
+.pregunta-examen h3 {
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+}
+
+.opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.opcion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color var(--transicion), background-color var(--transicion);
+}
+
+.opcion:hover {
+  border-color: var(--color-primario);
+}
+
+.opcion input {
+  accent-color: var(--color-primario);
+  width: 18px;
+  height: 18px;
+}
+
+/* :has() pinta la opcion completa cuando su radio esta marcado */
+.opcion:has(input:checked) {
+  border-color: var(--color-primario);
+  background-color: #fef2f2;
+  font-weight: 600;
+}
+
+.boton-terminar {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+}
+
 /* ========== Tablas ==========
    el contenedor deja hacer scroll horizontal en celular */
 .tabla-contenedor {
