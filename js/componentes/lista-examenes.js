@@ -1,4 +1,4 @@
-// <lista-examenes>: pantalla publica con los examenes que se pueden presentar
+// lista-examenes: pantalla publica con los examenes que se pueden presentar
 import { leerDatos } from "../servicios/almacenamiento.js";
 
 class ListaExamenes extends HTMLElement {

@@ -413,6 +413,120 @@ a {
   gap: 16px;
   flex-wrap: wrap;
   border-top: 5px solid var(--color-primario);
+  /* sticky hace que el encabezado (con el reloj) se quede pegado arriba al bajar */
+  position: sticky;
+  top: 10px;
+  z-index: 10;
+}
+
+/* ========== Temporizador ========== */
+.temporizador {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-secundario);
+  color: white;
+  padding: 10px 22px;
+  border-radius: var(--radio);
+  transition: background-color var(--transicion);
+}
+
+.temporizador__etiqueta {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.temporizador__reloj {
+  font-size: 1.8rem;
+  font-weight: 700;
+  /* numeros del mismo ancho pa que el reloj no "baile" */
+  font-variant-numeric: tabular-nums;
+}
+
+.temporizador--alerta {
+  background-color: var(--color-primario);
+  animation: palpitar 1s infinite;
+}
+
+@keyframes palpitar {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+/* ========== Resultado ========== */
+.resultado {
+  max-width: 520px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.resultado__aviso {
+  background-color: #fef3c7;
+  color: #92400e;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.resultado__circulo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  font-weight: 700;
+  border: 10px solid;
+  animation: aparecer 0.6s ease;
+}
+
+.resultado__circulo--aprobado {
+  color: var(--color-exito);
+  border-color: var(--color-exito);
+}
+
+.resultado__circulo--reprobado {
+  color: var(--color-primario);
+  border-color: var(--color-primario);
+}
+
+.estado {
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.estado--aprobado {
+  background-color: var(--color-exito);
+}
+
+.estado--reprobado {
+  background-color: var(--color-primario);
+}
+
+.resultado__datos {
+  list-style: none;
+  width: 100%;
+}
+
+.resultado__datos li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-borde);
+  text-align: left;
+}
+
+.resultado__datos span {
+  color: var(--color-texto-suave);
 }
 
 .pregunta-examen h3 {

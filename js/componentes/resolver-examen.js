@@ -1,6 +1,8 @@
 // <resolver-examen codigo="MAT01">: aca el estudiante presenta el examen
 // Tiene 2 pasos: 1) pedir sus datos  2) mostrar las preguntas
-import { leerDatos } from "../servicios/almacenamiento.js";
+import { leerDatos, guardarDatos } from "../servicios/almacenamiento.js";
+import "./temporizador-examen.js";
+import "./resultado-examen.js";
 
 class ResolverExamen extends HTMLElement {
 
@@ -103,19 +105,23 @@ class ResolverExamen extends HTMLElement {
             · 🎯 Aprueba con ${this.examen.porcentajeAprobacion}%
           </p>
         </div>
-        <!-- aca va el reloj en la etapa 9 -->
+        <temporizador-examen minutos="${this.examen.tiempo}"></temporizador-examen>
       </header>
 
       <form id="formExamen">
         ${preguntasHTML}
-        <p class="mensaje-error" id="errorExamen"></p>
         <button type="submit" class="boton boton-terminar">Terminar examen</button>
       </form>
     `;
 
     this.querySelector("#formExamen").addEventListener("submit", (evento) => {
       evento.preventDefault();
-      this.terminarExamen();
+      this.terminarExamen(false);
+    });
+
+    // el temporizador nos avisa con este evento cuando llega a 0
+    this.querySelector("temporizador-examen").addEventListener("tiempo-agotado", () => {
+      this.terminarExamen(true);
     });
   }
 
@@ -128,28 +134,68 @@ class ResolverExamen extends HTMLElement {
     });
   }
 
-  terminarExamen() {
+  // porTiempo es true cuando lo llama el temporizador al llegar a 0
+  terminarExamen(porTiempo) {
     const elegidas = this.obtenerRespuestasElegidas();
     const sinResponder = elegidas.filter((elegida) => elegida === null).length;
 
-    // si dejo preguntas sin responder le preguntamos antes de terminar
-    if (sinResponder > 0) {
+    // si termina antes de tiempo y le faltan preguntas, le preguntamos.
+    // Si se acabo el tiempo no hay nada que preguntar, se envia si o si
+    if (!porTiempo && sinResponder > 0) {
       const seguro = confirm(`Te faltan ${sinResponder} pregunta(s) por responder. ¿Quieres terminar de todas formas?`);
       if (!seguro) {
         return;
       }
     }
 
-    // por ahora solo mostramos cuantas respondio, en la etapa 9 calculamos la nota
-    this.innerHTML = `
-      <section class="tarjeta login">
-        <h1 class="titulo-pagina">¡Examen enviado!</h1>
-        <p class="subtitulo">
-          ${this.estudiante.nombre}, respondiste ${elegidas.length - sinResponder} de ${elegidas.length} preguntas.
-        </p>
-        <a href="#/presentar" class="boton">Volver a los exámenes</a>
-      </section>
-    `;
+    // contamos las correctas: la pregunta cuenta si eligio algo y lo que eligio es la correcta
+    const preguntas = this.examen.preguntas;
+    const correctas = preguntas.filter((pregunta, numeroPregunta) => {
+      const elegida = elegidas[numeroPregunta];
+      return elegida !== null && pregunta.respuestas[elegida].esCorrecta;
+    }).length;
+
+    // Math.round redondea, ej: 66.66 -> 67
+    const porcentaje = Math.round((correctas / preguntas.length) * 100);
+
+    this.guardarResultado(correctas, porcentaje);
+    this.mostrarResultado(correctas, porcentaje, porTiempo);
+  }
+
+  // guardamos el resultado en LocalStorage asociado a los datos del estudiante
+  guardarResultado(correctas, porcentaje) {
+    const resultados = leerDatos("resultados");
+
+    resultados.push({
+      identificacion: this.estudiante.identificacion,
+      nombre: this.estudiante.nombre,
+      codigoExamen: this.examen.codigo,
+      tituloExamen: this.examen.titulo,
+      correctas: correctas,
+      totalPreguntas: this.examen.preguntas.length,
+      porcentaje: porcentaje,
+      aprobo: porcentaje >= this.examen.porcentajeAprobacion,
+      fecha: new Date().toLocaleString(),
+    });
+
+    guardarDatos("resultados", resultados);
+  }
+
+  mostrarResultado(correctas, porcentaje, porTiempo) {
+    // creamos la etiqueta con JS y le ponemos los datos con setAttribute
+    const resultado = document.createElement("resultado-examen");
+    resultado.setAttribute("nombre", this.estudiante.nombre);
+    resultado.setAttribute("examen", this.examen.titulo);
+    resultado.setAttribute("correctas", correctas);
+    resultado.setAttribute("total", this.examen.preguntas.length);
+    resultado.setAttribute("porcentaje", porcentaje);
+    resultado.setAttribute("aprobacion", this.examen.porcentajeAprobacion);
+    resultado.setAttribute("por-tiempo", porTiempo ? "si" : "no");
+
+    // al borrar el contenido, el temporizador desaparece y su disconnectedCallback para el reloj
+    this.innerHTML = "";
+    this.appendChild(resultado);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 }
 
