@@ -4,6 +4,7 @@
 class TemporizadorExamen extends HTMLElement {
 
   connectedCallback() {
+    // trabajamos todo en segundos porque es mas facil restar de a 1
     const minutos = Number(this.getAttribute("minutos"));
     this.segundosRestantes = minutos * 60;
 
@@ -37,6 +38,9 @@ class TemporizadorExamen extends HTMLElement {
   }
 
   pintarTiempo() {
+    // pasamos los segundos a minutos:segundos. Ej: 125 segundos
+    // Math.floor(125 / 60) = 2 minutos (quita los decimales)
+    // 125 % 60 = 5 segundos (el % da lo que sobra de la division)
     const minutos = Math.floor(this.segundosRestantes / 60);
     const segundos = this.segundosRestantes % 60;
 

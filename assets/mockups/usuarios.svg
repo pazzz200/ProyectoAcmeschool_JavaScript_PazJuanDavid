@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <g stroke="#000" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none">
+    <rect width="600" height="400" fill="#fff" stroke="none"/>
+    <path d="M4 4 L596 6 L595 396 L5 394 Z"/>
+
+    <!-- barra -->
+    <path d="M10 12 L590 10 L591 50 L9 52 Z"/>
+    <path d="M24 31 L120 30"/>
+    <path d="M240 31 L290 30"/>
+    <path d="M310 30 L360 31"/>
+    <path d="M380 31 L430 30"/>
+    <path d="M490 18 L580 17 L581 44 L489 45 Z"/>
+
+    <!-- titulo -->
+    <path d="M20 78 L230 76" stroke-width="6"/>
+
+    <!-- formulario -->
+    <path d="M18 98 L582 96 L583 200 L17 202 Z"/>
+    <path d="M34 116 L120 115" stroke-width="2"/>
+    <path d="M34 124 L290 123 L291 148 L33 149 Z"/>
+    <path d="M310 115 L400 116" stroke-width="2"/>
+    <path d="M310 123 L566 124 L565 149 L311 148 Z"/>
+    <path d="M34 166 L320 165" stroke-width="2"/>
+    <path d="M34 175 L130 174 L131 195 L33 196 Z"/>
+    <path d="M142 174 L240 175 L239 196 L143 195 Z"/>
+
+    <!-- tabla -->
+    <path d="M18 216 L582 218 L581 384 L19 382 Z"/>
+    <path d="M20 250 L580 249"/>
+    <path d="M32 234 L60 233"/>
+    <path d="M90 233 L160 234"/>
+    <path d="M210 234 L280 233"/>
+    <path d="M340 233 L400 234"/>
+
+    <path d="M32 274 L62 273" stroke-width="2"/>
+    <path d="M90 273 L180 274" stroke-width="2"/>
+    <path d="M210 274 L320 273" stroke-width="2"/>
+    <path d="M340 273 L420 274" stroke-width="2"/>
+    <path d="M450 263 L506 262 L507 284 L449 285 Z"/>
+    <path d="M512 262 L572 263 L571 285 L513 284 Z"/>
+    <path d="M20 296 L580 297" stroke-width="1.5"/>
+
+    <path d="M32 318 L62 317" stroke-width="2"/>
+    <path d="M90 317 L170 318" stroke-width="2"/>
+    <path d="M210 318 L310 317" stroke-width="2"/>
+    <path d="M340 317 L400 318" stroke-width="2"/>
+    <path d="M450 307 L506 306 L507 328 L449 329 Z"/>
+    <path d="M512 306 L572 307 L571 329 L513 328 Z"/>
+    <path d="M20 340 L580 339" stroke-width="1.5"/>
+
+    <path d="M32 362 L62 361" stroke-width="2"/>
+    <path d="M90 361 L190 362" stroke-width="2"/>
+    <path d="M210 362 L300 361" stroke-width="2"/>
+    <path d="M340 361 L420 362" stroke-width="2"/>
+  </g>
+</svg>

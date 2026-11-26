@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <g stroke="#000" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none">
+    <rect width="600" height="400" fill="#fff" stroke="none"/>
+    <path d="M4 4 L596 6 L595 396 L5 394 Z"/>
+
+    <!-- tarjeta -->
+    <path d="M150 16 L452 14 L455 386 L148 388 Z"/>
+
+    <!-- circulo de la nota -->
+    <path d="M300 30 C 352 30, 362 70, 360 90 C 358 128, 330 148, 300 148 C 262 150, 240 122, 240 90 C 240 56, 262 30, 300 30 Z" stroke-width="8"/>
+    <path d="M276 90 L324 89" stroke-width="7"/>
+
+    <!-- aprobado / no aprobado -->
+    <path d="M240 162 L362 160 L364 192 L238 194 Z"/>
+    <path d="M262 177 L340 176"/>
+
+    <!-- datos -->
+    <path d="M172 222 L250 221" stroke-width="2"/>
+    <path d="M330 222 L420 221"/>
+    <path d="M170 234 L432 235" stroke-width="1.5"/>
+    <path d="M172 252 L230 251" stroke-width="2"/>
+    <path d="M330 252 L410 251"/>
+    <path d="M170 264 L432 263" stroke-width="1.5"/>
+    <path d="M172 282 L240 281" stroke-width="2"/>
+    <path d="M330 282 L380 281"/>
+    <path d="M170 294 L432 295" stroke-width="1.5"/>
+    <path d="M172 312 L245 311" stroke-width="2"/>
+    <path d="M330 312 L370 311"/>
+
+    <!-- boton -->
+    <path d="M200 338 L402 336 L404 372 L198 374 Z"/>
+    <path d="M240 355 L360 354"/>
+  </g>
+</svg>

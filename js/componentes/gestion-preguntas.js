@@ -2,12 +2,15 @@
 // El codigo del examen le llega como atributo desde principal.js
 import { leerDatos, guardarDatos } from "../servicios/almacenamiento.js";
 
+// constantes en mayuscula: son valores que no cambian, asi si queremos
+// permitir mas respuestas solo cambiamos el numero aca
 const MINIMO_RESPUESTAS = 2;
 const MAXIMO_RESPUESTAS = 6;
 
 class GestionPreguntas extends HTMLElement {
 
   connectedCallback() {
+    // getAttribute lee el codigo="MAT01" que viene en la etiqueta
     this.codigoExamen = this.getAttribute("codigo");
     // null = creando una pregunta nueva, un numero = la posicion de la que editamos
     this.posicionEditando = null;
@@ -100,15 +103,20 @@ class GestionPreguntas extends HTMLElement {
     this.pintarPreguntas();
   }
 
+  // siempre leemos el examen fresco de LocalStorage, asi tenemos las preguntas al dia
   buscarExamen() {
     return leerDatos("examenes").find((examen) => examen.codigo === this.codigoExamen);
   }
 
   // ---------- filas de respuestas del formulario ----------
 
+  // agrega una fila (radio + input + boton x) al formulario.
+  // Los parametros tienen valor por defecto: si no le pasamos nada, crea una fila vacia.
+  // Cuando editamos, le pasamos el texto y si era la correcta
   agregarFilaRespuesta(texto = "", esCorrecta = false) {
     const lista = this.querySelector("#listaRespuestas");
 
+    // children son los elementos hijos, o sea, las filas que ya hay
     if (lista.children.length >= MAXIMO_RESPUESTAS) {
       this.querySelector("#errorPregunta").textContent = `Máximo ${MAXIMO_RESPUESTAS} respuestas por pregunta.`;
       return;
@@ -125,6 +133,8 @@ class GestionPreguntas extends HTMLElement {
     `;
     // el texto lo ponemos aparte pa que no se rompa si la respuesta trae comillas
     fila.querySelector(".texto-respuesta").value = texto;
+
+    // appendChild pega la fila al final de la lista (sin borrar las que ya estaban)
     lista.appendChild(fila);
   }
 
@@ -162,6 +172,7 @@ class GestionPreguntas extends HTMLElement {
     mensajeExito.textContent = "";
 
     // leemos cada fila y armamos el arreglo de respuestas
+    // querySelectorAll trae TODAS las filas (no solo la primera como querySelector)
     const filas = this.querySelectorAll(".fila-respuesta");
     const respuestas = [];
     filas.forEach((fila) => {
@@ -182,7 +193,9 @@ class GestionPreguntas extends HTMLElement {
       return;
     }
 
-    // traemos todos los examenes, cambiamos el nuestro y guardamos todo otra vez
+    // traemos todos los examenes, cambiamos el nuestro y guardamos todo otra vez.
+    // find devuelve el MISMO objeto que esta dentro del arreglo (no una copia),
+    // por eso al hacerle push a examen.preguntas tambien cambia dentro de "examenes"
     const examenes = leerDatos("examenes");
     const examen = examenes.find((e) => e.codigo === this.codigoExamen);
 
@@ -210,6 +223,7 @@ class GestionPreguntas extends HTMLElement {
 
     // pasamos todo a minuscula pa comparar y ver si hay respuestas repetidas
     const textos = pregunta.respuestas.map((respuesta) => respuesta.texto.toLowerCase());
+    // un Set es como un arreglo que no acepta repetidos: si queda mas cortico, habia repetidas
     const sinRepetir = new Set(textos);
     if (sinRepetir.size !== textos.length) {
       return "Hay respuestas repetidas.";
@@ -273,6 +287,9 @@ class GestionPreguntas extends HTMLElement {
       return;
     }
 
+    // map tambien nos da la posicion de cada pregunta (0, 1, 2...),
+    // le sumamos 1 pa mostrarla numerada desde 1 y la guardamos en data-posicion pa los botones.
+    // Adentro hay otro map pa pintar las respuestas de cada pregunta
     lista.innerHTML = preguntas.map((pregunta, posicion) => `
       <article class="pregunta">
         <div class="pregunta__encabezado">
@@ -285,7 +302,7 @@ class GestionPreguntas extends HTMLElement {
         <ul class="pregunta__respuestas">
           ${pregunta.respuestas.map((respuesta) => `
             <li class="${respuesta.esCorrecta ? "respuesta-correcta" : ""}">
-              ${respuesta.esCorrecta ? "✔" : "○"} ${respuesta.texto}
+              ○ ${respuesta.texto} ${respuesta.esCorrecta ? "(correcta)" : ""}
             </li>
           `).join("")}
         </ul>

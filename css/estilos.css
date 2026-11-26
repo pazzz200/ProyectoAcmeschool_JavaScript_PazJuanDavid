@@ -35,7 +35,9 @@ a {
   color: inherit;
 }
 
-/* ========== Barra de navegacion ========== */
+/* ========== Barra de navegacion ==========
+   flex pone el logo y los enlaces en una fila, space-between los manda a los extremos
+   y flex-wrap deja que bajen a otra linea si no caben (celular) */
 .barra {
   background-color: var(--color-primario);
   color: white;
@@ -71,6 +73,11 @@ a {
   background-color: rgba(255, 255, 255, 0.15);
 }
 
+.barra__enlaces a.activo {
+  background-color: rgba(255, 255, 255, 0.22);
+  font-weight: 600;
+}
+
 .barra__enlaces li {
   display: flex;
   align-items: center;
@@ -97,7 +104,9 @@ a {
   transform: translateY(-2px);
 }
 
-/* ========== Contenedor principal ========== */
+/* ========== Contenedor principal ==========
+   max-width evita que en pantallas grandes todo quede estirado,
+   y margin 0 auto lo centra */
 #app {
   max-width: 1100px;
   margin: 0 auto;
@@ -136,7 +145,9 @@ a {
   }
 }
 
-/* ========== Botones ========== */
+/* ========== Botones ==========
+   .boton es la base y las clases con -- son variantes que solo cambian el color,
+   ej: class="boton boton--peligro" */
 .boton {
   display: inline-block;
   border: none;
@@ -173,7 +184,8 @@ a {
   filter: brightness(0.9);
 }
 
-/* ========== Formularios ========== */
+/* ========== Formularios ==========
+   cada .campo es un label con su input, uno debajo del otro (flex-direction: column) */
 .campo {
   display: flex;
   flex-direction: column;
@@ -454,7 +466,8 @@ a {
   50% { transform: scale(1.06); }
 }
 
-/* ========== Resultado ========== */
+/* ========== Resultado ==========
+   el circulo es un cuadrado con border-radius 50%, y flex centra el numero adentro */
 .resultado {
   max-width: 520px;
   margin: 20px auto;
@@ -603,7 +616,9 @@ a {
   background-color: #f9fafb;
 }
 
-/* ========== Celular ========== */
+/* ========== Celular ==========
+   todo lo que esta aca adentro solo se aplica si la pantalla mide 600px o menos.
+   Asi la misma pagina se acomoda en celular (esto es lo "responsive") */
 @media (max-width: 600px) {
   .barra {
     padding: 12px 16px;
@@ -624,5 +639,37 @@ a {
 
   .formulario-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* en celular el encabezado del examen va mas compacto pa no tapar tanto */
+  .encabezado-examen {
+    padding: 14px;
+    top: 6px;
+  }
+
+  .encabezado-examen .titulo-pagina {
+    font-size: 1.1rem;
+  }
+
+  .encabezado-examen .subtitulo {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+  }
+
+  .temporizador {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 14px;
+  }
+
+  .temporizador__reloj {
+    font-size: 1.4rem;
+  }
+
+  .resultado__circulo {
+    width: 120px;
+    height: 120px;
+    font-size: 2rem;
   }
 }

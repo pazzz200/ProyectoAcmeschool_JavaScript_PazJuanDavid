@@ -1,4 +1,8 @@
 // Aca arranca todo. Este archivo decide que pantalla se ve segun la URL
+
+// estos import no traen ninguna funcion, solo cargan el archivo.
+// Con eso basta pa que cada componente haga su customElements.define
+// y el navegador ya entienda etiquetas como <gestion-usuarios>
 import "./componentes/formulario-login.js";
 import "./componentes/barra-navegacion.js";
 import "./componentes/gestion-usuarios.js";
@@ -14,17 +18,17 @@ const contenedorApp = document.getElementById("app");
 // pantallas que solo se ven con sesion iniciada
 const rutasPrivadas = ["#/usuarios", "#/examenes", "#/preguntas"];
 
+// apenas abre la app nos aseguramos de que exista al menos un usuario pa poder entrar
 crearAdminPorDefecto();
 
-// pantalla temporal para los modulos que aun no hemos hecho
-function pantallaPendiente(titulo) {
-  return `
-    <section class="tarjeta">
-      <h1 class="titulo-pagina">${titulo}</h1>
-      <p class="subtitulo">Este módulo lo construimos en las próximas etapas.</p>
-    </section>
-  `;
-}
+// pantalla pa cuando escriben una ruta que no existe
+const paginaNoEncontrada = `
+  <section class="tarjeta">
+    <h1 class="titulo-pagina">Página no encontrada</h1>
+    <p class="subtitulo">La página que buscas no existe.</p>
+    <a href="#/" class="boton">Ir al inicio</a>
+  </section>
+`;
 
 // cada ruta (lo que va despues del #) tiene su pantalla.
 // Las que necesitan un dato extra (como el codigo del examen) son funciones
@@ -56,7 +60,8 @@ function mostrarPantalla() {
 
   const usuario = obtenerUsuarioActual();
 
-  // sin sesion no puede entrar a lo privado, pa'l login
+  // sin sesion no puede entrar a lo privado, pa'l login.
+  // includes revisa si la ruta esta dentro del arreglo de rutas privadas
   if (rutasPrivadas.includes(rutaBase) && !usuario) {
     location.hash = "#/login";
     return;
@@ -68,10 +73,13 @@ function mostrarPantalla() {
     return;
   }
 
+  // buscamos la pantalla en el objeto rutas usando la ruta como "llave"
   const pantalla = rutas[rutaBase];
 
+  // si no existe mostramos el error, si es funcion le pasamos el parametro
+  // (ej: el codigo del examen) y si es texto lo ponemos tal cual
   if (!pantalla) {
-    contenedorApp.innerHTML = pantallaPendiente("Página no encontrada");
+    contenedorApp.innerHTML = paginaNoEncontrada;
   } else if (typeof pantalla === "function") {
     contenedorApp.innerHTML = pantalla(parametro);
   } else {
@@ -81,4 +89,6 @@ function mostrarPantalla() {
 
 // hashchange salta cada vez que cambia lo que va despues del #
 window.addEventListener("hashchange", mostrarPantalla);
+
+// y la llamamos una vez al cargar, pa pintar la primera pantalla
 mostrarPantalla();

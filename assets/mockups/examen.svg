@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <g stroke="#000" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none">
+    <rect width="600" height="400" fill="#fff" stroke="none"/>
+    <path d="M4 4 L596 6 L595 396 L5 394 Z"/>
+
+    <!-- encabezado con el reloj -->
+    <path d="M18 16 L582 14 L583 96 L17 98 Z"/>
+    <path d="M34 50 L200 48" stroke-width="6"/>
+    <path d="M34 78 L320 77" stroke-width="2"/>
+    <path d="M440 30 L568 29 L569 86 L439 87 Z"/>
+    <path d="M460 46 L548 45" stroke-width="2"/>
+    <path d="M468 70 L540 69" stroke-width="6"/>
+
+    <!-- pregunta 1 -->
+    <path d="M18 112 L582 114 L581 250 L19 248 Z"/>
+    <path d="M34 136 L250 135" stroke-width="4"/>
+    <path d="M34 152 L566 151 L567 178 L33 179 Z"/>
+    <circle cx="52" cy="165" r="7"/>
+    <path d="M70 165 L120 164" stroke-width="2"/>
+    <path d="M34 186 L566 187 L565 214 L35 213 Z"/>
+    <circle cx="52" cy="200" r="7"/>
+    <circle cx="52" cy="200" r="3" fill="#000"/>
+    <path d="M70 200 L130 199" stroke-width="2"/>
+    <path d="M34 220 L566 219 L567 244 L33 245 Z"/>
+    <circle cx="52" cy="232" r="7"/>
+    <path d="M70 232 L110 231" stroke-width="2"/>
+
+    <!-- pregunta 2 (cortada) -->
+    <path d="M18 264 L582 262 L583 320 L17 322 Z"/>
+    <path d="M34 288 L240 287" stroke-width="4"/>
+    <path d="M34 306 L80 305" stroke-width="2" stroke-dasharray="4 8"/>
+
+    <!-- boton terminar -->
+    <path d="M18 336 L582 338 L581 384 L19 382 Z"/>
+    <path d="M230 360 L370 359"/>
+  </g>
+</svg>

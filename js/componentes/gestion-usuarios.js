@@ -90,6 +90,8 @@ class GestionUsuarios extends HTMLElement {
     // en vez de ponerle un evento a cada boton, escuchamos clics en toda la tabla
     // y miramos que boton fue (esto se llama delegacion de eventos)
     this.querySelector("#cuerpoTabla").addEventListener("click", (evento) => {
+      // evento.target es el elemento exacto donde se hizo clic.
+      // dataset.id lee el atributo data-id que le pusimos a cada boton en pintarTabla
       const boton = evento.target;
       const identificacion = boton.dataset.id;
 
@@ -104,6 +106,8 @@ class GestionUsuarios extends HTMLElement {
     this.pintarTabla();
   }
 
+  // borra la tabla y la vuelve a armar con lo que haya en LocalStorage.
+  // La llamamos cada vez que se crea, edita o borra algo, asi siempre esta al dia
   pintarTabla() {
     const usuarios = leerDatos("usuarios");
     const cuerpoTabla = this.querySelector("#cuerpoTabla");
@@ -130,6 +134,8 @@ class GestionUsuarios extends HTMLElement {
   }
 
   guardarUsuario() {
+    // armamos un objeto con lo que escribieron en el formulario.
+    // El correo lo pasamos a minuscula pa que "Ana@acme.com" y "ana@acme.com" sean el mismo
     const usuario = {
       identificacion: this.querySelector("#identificacion").value.trim(),
       nombre: this.querySelector("#nombre").value.trim(),
@@ -152,6 +158,7 @@ class GestionUsuarios extends HTMLElement {
 
     const usuarios = leerDatos("usuarios");
 
+    // si no estamos editando, es un usuario nuevo: lo agregamos al final con push
     if (this.identificacionEditando === null) {
       usuarios.push(usuario);
       mensajeExito.textContent = "Usuario creado correctamente.";
@@ -181,6 +188,7 @@ class GestionUsuarios extends HTMLElement {
       return "Por favor llena todos los campos.";
     }
 
+    // ^\d+$ significa: de principio a fin, solo numeros (\d es un digito)
     if (!/^\d+$/.test(usuario.identificacion)) {
       return "La identificación solo puede tener números.";
     }
@@ -189,6 +197,7 @@ class GestionUsuarios extends HTMLElement {
       return "El correo no tiene un formato válido.";
     }
 
+    // \d{7,10} = entre 7 y 10 numeros
     if (!/^\d{7,10}$/.test(usuario.telefono)) {
       return "El teléfono debe tener entre 7 y 10 números.";
     }
@@ -202,6 +211,7 @@ class GestionUsuarios extends HTMLElement {
       (u) => u.identificacion !== this.identificacionEditando
     );
 
+    // some devuelve true si AL MENOS UNO cumple la condicion
     if (otrosUsuarios.some((u) => u.identificacion === usuario.identificacion)) {
       return "Ya existe un usuario con esa identificación.";
     }
@@ -244,6 +254,7 @@ class GestionUsuarios extends HTMLElement {
       return;
     }
 
+    // confirm muestra una ventanita con Aceptar/Cancelar y devuelve true o false
     if (!confirm(`¿Seguro que quieres eliminar a ${usuario.nombre}?`)) {
       return;
     }
@@ -261,6 +272,7 @@ class GestionUsuarios extends HTMLElement {
 
   // borrarMensajes en false sirve pa que no se borre el "creado correctamente"
   limpiarFormulario(borrarMensajes = true) {
+    // reset() vacia todos los campos del form de una
     this.querySelector("#formUsuario").reset();
     this.querySelector("#identificacion").disabled = false;
     this.identificacionEditando = null;

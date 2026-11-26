@@ -6,6 +6,8 @@ class FormularioLogin extends HTMLElement {
 
   // esto se ejecuta solo cuando la etiqueta aparece en la pagina
   connectedCallback() {
+    // this es el propio componente, con innerHTML le metemos el HTML adentro.
+    // novalidate en el form apaga las validaciones del navegador pa usar las nuestras
     this.innerHTML = `
       <section class="tarjeta login">
         <h1 class="titulo-pagina">Iniciar sesión</h1>
@@ -29,6 +31,7 @@ class FormularioLogin extends HTMLElement {
       </section>
     `;
 
+    // usamos this.querySelector (y no document) pa buscar solo dentro del componente
     const formulario = this.querySelector("#formLogin");
 
     // preventDefault evita que el form recargue la pagina
@@ -39,6 +42,7 @@ class FormularioLogin extends HTMLElement {
   }
 
   validarFormulario() {
+    // trim quita los espacios del inicio y del final, por si escribieron "  hola "
     const correo = this.querySelector("#correo").value.trim();
     const contrasena = this.querySelector("#contrasena").value.trim();
     const mensajeError = this.querySelector("#mensajeError");
@@ -46,12 +50,14 @@ class FormularioLogin extends HTMLElement {
     // limpiamos el mensaje viejo
     mensajeError.textContent = "";
 
+    // cada validacion hace return si falla, asi no sigue revisando lo demas
     if (correo === "" || contrasena === "") {
       mensajeError.textContent = "Por favor llena todos los campos.";
       return;
     }
 
-    // revisa que tenga forma de correo: 
+    // esto es una expresion regular: revisa que tenga forma de correo (algo@algo.algo)
+    // y que no tenga espacios. test() devuelve true si el texto cumple el patron
     const formatoCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formatoCorreo.test(correo)) {
       mensajeError.textContent = "El correo no tiene un formato válido.";
@@ -71,7 +77,8 @@ class FormularioLogin extends HTMLElement {
       return;
     }
 
-    // si todo bien lo mandamos a la gestion de usuarios
+    // si todo bien lo mandamos a la gestion de usuarios.
+    // Cambiar location.hash dispara el evento hashchange, y principal.js cambia la pantalla
     location.hash = "#/usuarios";
   }
 }

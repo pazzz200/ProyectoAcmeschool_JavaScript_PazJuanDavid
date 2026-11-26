@@ -95,6 +95,8 @@ class GestionExamenes extends HTMLElement {
     this.pintarTabla();
   }
 
+  // igual que en usuarios: vuelve a armar la tabla con lo guardado.
+  // La columna Preguntas muestra cuantas tiene cada examen (preguntas.length)
   pintarTabla() {
     const examenes = leerDatos("examenes");
     const cuerpoTabla = this.querySelector("#cuerpoTablaExamenes");
@@ -121,6 +123,8 @@ class GestionExamenes extends HTMLElement {
   }
 
   guardarExamen() {
+    // el codigo va en mayuscula pa que "mat01" y "MAT01" cuenten como el mismo.
+    // Un examen nuevo arranca con preguntas vacio, las preguntas se agregan en otra pantalla
     const examen = {
       codigo: this.querySelector("#codigo").value.trim().toUpperCase(),
       titulo: this.querySelector("#titulo").value.trim(),
@@ -160,6 +164,8 @@ class GestionExamenes extends HTMLElement {
     this.pintarTabla();
   }
 
+  // devuelve el texto del error, o "" si todo esta bien.
+  // Ojo: Number("") da 0, por eso !examen.tiempo tambien atrapa el campo vacio
   validarExamen(examen) {
     if (!examen.codigo || !examen.titulo || !examen.descripcion ||
         !examen.tiempo || !examen.porcentajeAprobacion) {
@@ -209,6 +215,7 @@ class GestionExamenes extends HTMLElement {
       return;
     }
 
+    // filter deja todos los examenes menos el que tiene ese codigo, y guardamos esa lista nueva
     guardarDatos("examenes", examenes.filter((e) => e.codigo !== codigo));
     this.pintarTabla();
 

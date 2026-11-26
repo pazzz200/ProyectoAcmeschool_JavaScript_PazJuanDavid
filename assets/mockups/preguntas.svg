@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <g stroke="#000" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none">
+    <rect width="600" height="400" fill="#fff" stroke="none"/>
+    <path d="M4 4 L596 6 L595 396 L5 394 Z"/>
+
+    <!-- volver y titulo -->
+    <path d="M20 28 L120 27" stroke-width="2"/>
+    <path d="M20 58 L300 56" stroke-width="6"/>
+
+    <!-- formulario -->
+    <path d="M18 80 L582 78 L583 256 L17 258 Z"/>
+    <path d="M34 98 L100 97" stroke-width="2"/>
+    <path d="M34 106 L566 105 L567 136 L33 137 Z"/>
+    <path d="M34 154 L220 153" stroke-width="2"/>
+
+    <circle cx="46" cy="180" r="9"/>
+    <path d="M64 168 L520 167 L521 192 L63 193 Z"/>
+    <path d="M534 174 L546 186 M546 174 L534 186" stroke-width="2"/>
+
+    <circle cx="46" cy="212" r="9"/>
+    <circle cx="46" cy="212" r="3" fill="#000"/>
+    <path d="M64 200 L520 201 L519 225 L65 224 Z"/>
+    <path d="M534 206 L546 218 M546 206 L534 218" stroke-width="2"/>
+
+    <path d="M34 234 L160 233 L161 252 L33 253 Z"/>
+
+    <!-- lista de preguntas -->
+    <path d="M18 272 L582 274 L581 384 L19 382 Z"/>
+    <path d="M34 296 L260 295" stroke-width="4"/>
+    <circle cx="48" cy="320" r="5" stroke-width="2"/>
+    <path d="M62 320 L140 319" stroke-width="2"/>
+    <circle cx="48" cy="342" r="5" stroke-width="2"/>
+    <circle cx="48" cy="342" r="2" fill="#000" stroke-width="2"/>
+    <path d="M62 342 L160 341" stroke-width="2"/>
+    <circle cx="48" cy="364" r="5" stroke-width="2"/>
+    <path d="M62 364 L130 363" stroke-width="2"/>
+    <path d="M450 288 L506 287 L507 308 L449 309 Z"/>
+    <path d="M512 287 L568 288 L567 309 L513 308 Z"/>
+  </g>
+</svg>

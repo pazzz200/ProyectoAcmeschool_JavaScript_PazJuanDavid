@@ -1,6 +1,8 @@
 // <resolver-examen codigo="MAT01">: aca el estudiante presenta el examen
 // Tiene 2 pasos: 1) pedir sus datos  2) mostrar las preguntas
+// Los dos pasos pasan dentro del mismo componente: solo cambiamos su innerHTML
 import { leerDatos, guardarDatos } from "../servicios/almacenamiento.js";
+// este componente usa el temporizador y el resultado, por eso los importamos aca
 import "./temporizador-examen.js";
 import "./resultado-examen.js";
 
@@ -8,8 +10,10 @@ class ResolverExamen extends HTMLElement {
 
   connectedCallback() {
     const codigo = this.getAttribute("codigo");
+    // lo guardamos en this.examen pa poder usarlo en todos los metodos de la clase
     this.examen = leerDatos("examenes").find((examen) => examen.codigo === codigo);
 
+    // por si escriben un codigo raro en la URL o el examen se quedo sin preguntas
     if (!this.examen || this.examen.preguntas.length === 0) {
       this.innerHTML = `
         <section class="tarjeta">
@@ -32,8 +36,8 @@ class ResolverExamen extends HTMLElement {
       <section class="tarjeta login">
         <h1 class="titulo-pagina">${this.examen.titulo}</h1>
         <p class="subtitulo">
-          ⏱ ${this.examen.tiempo} min · 🎯 Aprueba con ${this.examen.porcentajeAprobacion}%
-          · 📝 ${this.examen.preguntas.length} preguntas
+          ${this.examen.tiempo} min · Aprueba con ${this.examen.porcentajeAprobacion}%
+          · ${this.examen.preguntas.length} preguntas
         </p>
 
         <form id="formEstudiante" novalidate>
@@ -69,7 +73,8 @@ class ResolverExamen extends HTMLElement {
         return;
       }
 
-      // guardamos al estudiante en el componente pa usarlo cuando termine
+      // guardamos al estudiante en el componente pa usarlo cuando termine.
+      // { identificacion, nombre } es lo mismo que { identificacion: identificacion, nombre: nombre }
       this.estudiante = { identificacion, nombre };
       this.mostrarPreguntas();
     });
@@ -101,8 +106,8 @@ class ResolverExamen extends HTMLElement {
         <div>
           <h1 class="titulo-pagina">${this.examen.titulo}</h1>
           <p class="subtitulo">
-            👤 ${this.estudiante.nombre} · 📝 ${preguntas.length} preguntas
-            · 🎯 Aprueba con ${this.examen.porcentajeAprobacion}%
+            ${this.estudiante.nombre} · ${preguntas.length} preguntas
+            · Aprueba con ${this.examen.porcentajeAprobacion}%
           </p>
         </div>
         <temporizador-examen minutos="${this.examen.tiempo}"></temporizador-examen>
@@ -129,6 +134,8 @@ class ResolverExamen extends HTMLElement {
   // (o null si la dejo sin responder)
   obtenerRespuestasElegidas() {
     return this.examen.preguntas.map((pregunta, numeroPregunta) => {
+      // :checked busca solo el radio que esta marcado en esa pregunta.
+      // Su value es la posicion de la respuesta, pero llega como texto, por eso el Number
       const marcada = this.querySelector(`input[name="pregunta-${numeroPregunta}"]:checked`);
       return marcada ? Number(marcada.value) : null;
     });
@@ -137,6 +144,7 @@ class ResolverExamen extends HTMLElement {
   // porTiempo es true cuando lo llama el temporizador al llegar a 0
   terminarExamen(porTiempo) {
     const elegidas = this.obtenerRespuestasElegidas();
+    // contamos cuantas quedaron en null, o sea sin responder
     const sinResponder = elegidas.filter((elegida) => elegida === null).length;
 
     // si termina antes de tiempo y le faltan preguntas, le preguntamos.
@@ -155,6 +163,7 @@ class ResolverExamen extends HTMLElement {
       return elegida !== null && pregunta.respuestas[elegida].esCorrecta;
     }).length;
 
+    // regla de tres: correctas / total * 100. Ej: 2 de 3 = 66.66%
     // Math.round redondea, ej: 66.66 -> 67
     const porcentaje = Math.round((correctas / preguntas.length) * 100);
 

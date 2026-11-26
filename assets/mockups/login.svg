@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <g stroke="#000" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none">
+    <rect width="600" height="400" fill="#fff" stroke="none"/>
+    <path d="M4 4 L596 6 L595 396 L5 394 Z"/>
+
+    <!-- barra -->
+    <path d="M10 12 L590 10 L591 58 L9 60 Z"/>
+    <path d="M26 36 L130 35"/>
+    <path d="M360 36 L440 35"/>
+    <path d="M470 35 L570 36"/>
+
+    <!-- tarjeta -->
+    <path d="M170 90 L428 87 L431 372 L168 375 Z"/>
+    <path d="M196 124 L330 122" stroke-width="6"/>
+    <path d="M196 160 L300 159" stroke-width="2"/>
+    <path d="M196 174 L404 172 L405 206 L195 207 Z"/>
+    <path d="M196 232 L280 231" stroke-width="2"/>
+    <path d="M195 244 L405 245 L404 278 L196 277 Z"/>
+    <path d="M196 306 L404 303 L406 348 L195 350 Z"/>
+    <path d="M260 327 L340 326"/>
+  </g>
+</svg>

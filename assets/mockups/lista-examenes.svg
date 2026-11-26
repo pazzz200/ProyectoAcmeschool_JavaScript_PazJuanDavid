@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <g stroke="#000" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none">
+    <rect width="600" height="400" fill="#fff" stroke="none"/>
+    <path d="M4 4 L596 6 L595 396 L5 394 Z"/>
+
+    <!-- barra -->
+    <path d="M10 12 L590 10 L591 50 L9 52 Z"/>
+    <path d="M24 31 L120 30"/>
+    <path d="M360 31 L450 30"/>
+    <path d="M476 30 L570 31"/>
+
+    <!-- titulo -->
+    <path d="M20 82 L250 80" stroke-width="6"/>
+    <path d="M20 104 L190 103" stroke-width="2"/>
+
+    <!-- tarjeta 1 -->
+    <path d="M20 128 L290 126 L292 370 L18 372 Z"/>
+    <path d="M36 142 L96 141 L97 162 L35 163 Z"/>
+    <path d="M36 190 L180 189" stroke-width="5"/>
+    <path d="M36 214 L230 213" stroke-width="2"/>
+    <path d="M36 246 L170 245" stroke-width="2"/>
+    <path d="M36 268 L160 267" stroke-width="2"/>
+    <path d="M36 290 L140 289" stroke-width="2"/>
+    <path d="M36 320 L274 318 L275 354 L35 356 Z"/>
+
+    <!-- tarjeta 2 -->
+    <path d="M310 126 L580 128 L578 372 L312 370 Z"/>
+    <path d="M326 141 L384 142 L383 163 L327 162 Z"/>
+    <path d="M326 190 L440 191" stroke-width="5"/>
+    <path d="M326 214 L500 215" stroke-width="2"/>
+    <path d="M326 246 L460 247" stroke-width="2"/>
+    <path d="M326 268 L450 269" stroke-width="2"/>
+    <path d="M326 290 L430 291" stroke-width="2"/>
+    <path d="M326 318 L564 320 L563 356 L327 354 Z"/>
+  </g>
+</svg>
